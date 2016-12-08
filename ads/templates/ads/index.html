@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html>
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Buy, Sell and Exchange books with fellow DTU-ites">
+    <meta name="keywords" content="DTU Mart, College, Books, buy, sell, Delhi Technological University, DTU, DCE, ads" />
+    <meta name="author" content="">
+
+
+    <meta property="og:url"           content="http://dtumart.com" />
+    <meta property="og:type"          content="website" />
+    <meta property="og:site_name"     content="DTU Mart"/>
+    <meta property="og:title"         content="DTU Mart" />
+    <meta property="og:description"   content="Buy, Sell and Exchange books and items with fellow DTU-ites" />
+    <meta property="og:image"         content="http://dtumart.com/static/share.png" />
+    <meta property="fb:app_id"        content="1648788025396019" />
+    <meta property="og:locale"        content="en_US" />
+
+    <title>DTU Mart</title>
+
+
+    <!-- favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'app/favicon-32x32.png' %}">
+    <link rel="icon" type="image/png" sizes="96x96" href="{% static 'app/favicon-96x96.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'app/favicon-16x16.png' %}">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="theme-color" content="#ffffff">
+
+
+    <!--Import Google Icon Font-->
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- materialize -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">
+    <!-- animate.css -->
+    <link rel="stylesheet" href="{% static 'app/animate.css' %}">
+    <!-- Google Font -->
+    <link href='https://fonts.googleapis.com/css?family=Roboto+Slab' rel='stylesheet' type='text/css'>
+
+    <!-- Google analytics -->
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-64358360-3', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+
+    <style>
+        body {
+          display: flex;
+          min-height: 100vh;
+          flex-direction: column;
+        }
+
+        .items {
+          flex: 1 0 auto;
+        }
+
+        .mdi-navigation-menu {
+            position: absolute;
+            top: 12px;
+            font-size: 28px;
+            color: white;
+        }
+        header, main, footer {
+          padding-left: 240px;
+        }
+
+        @media only screen and (max-width : 992px) {
+          header, main, footer {
+            padding-left: 0;
+          }
+        }
+
+        @media screen and (min-width : 992px) {
+          .items {
+            padding-left: 100px;
+          }
+        }
+
+        #apply:hover .animated {
+          -webkit-animation: rubberBand 1s;
+          animation: rubberBand 1s;
+        }
+
+        #reset:hover .animated {
+          -webkit-animation: rotateIn 1s;
+          animation: rotateIn 1s;
+        }
+    </style>
+
+</head>
+<body>
+    <!-- jquery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <!-- materialize js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
+    <!-- masonry -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/masonry/3.3.2/masonry.pkgd.min.js"></script>
+    <header>
+        {% include 'ads/nav.html' %}
+        {% include 'ads/sidenav.html' %}
+    </header>
+    <div class="container items">
+
+        <div class="center section loader">
+            <div class="preloader-wrapper small active">
+                <div class="spinner-layer spinner-green-only">
+                  <div class="circle-clipper left">
+                    <div class="circle"></div>
+                  </div><div class="gap-patch">
+                    <div class="circle"></div>
+                  </div><div class="circle-clipper right">
+                    <div class="circle"></div>
+                  </div>
+                </div>
+            </div>
+        </div>
+
+        <div style="
+        position: block;
+        display: block;
+        margin: auto;
+        width: 51%;
+        ">
+          <input id="search"  style="
+          height: 58px;
+          font-size: 33px;
+          padding-top:10px;" type="search" class="input-field col s6" placeholder="Search">
+        </div>
+        <div style="margin: 9px;" >
+          <button id="reset" style="display: none;" class="waves-effect waves-light btn blue-grey darken-1"><i class="animated left fa fa-refresh"></i>Reset Filter</button>
+        </div>
+        <div class="row grid main-content">
+
+        </div>
+        <div class="fixed-action-btn horizontal " style="bottom: 45px; right: 24px;">
+            <a class="btn-floating btn-large red tooltipped waves-effect waves-light" data-position="top"
+                data-delay="50" data-tooltip="Post new Ad" {% if user.username %}href="/post-ad" {% else %}href="/loginpage?unauth=true"{% endif %}>
+              <i class="large material-icons">add</i>
+            </a>
+        </div>
+
+
+    </div>
+
+    {% include 'ads/footer.html' %}
+
+</body>
+<script>
+  function isFacebookApp() {
+    var ua = navigator.userAgent || navigator.vendor || window.opera;
+    return (ua.indexOf("FBAN") > -1) || (ua.indexOf("FBAV") > -1);
+  }
+  if(isFacebookApp()) {
+    $('.loader').css('display','none');
+    $('.row').append("<div class='section center grey-text text-darken-2'>The site does not work best with Facebook App's Browser<br>Please open the link in any other browser</div>");
+  }
+</script>
+<script>
+    $("#search").focus();
+    function getdata() {
+      var url = "/getdata";
+      $.ajax({
+             type: "GET",
+             url: url,
+             success: function(res)
+             {
+                $('.loader').css('display','none');
+                for(var i =0;i<res.length;i++) {
+                    var str = '<div class="col s12 m6 grid-item">'+
+                         '<div class="card">'+
+                             '<div class="card-content">'+
+                                 '<span class="card-title">'+res[i].fields.title+'</span>'+
+                                 '<p>'+res[i].fields.desc+'</p>'+
+                             '</div>'+
+                             '<div class="card-content">'+
+                               '<span class="card-title activator grey-text text-darken-4">'+
+                                  '<a class="right btn-floating waves-effect waves-light green accent-4"><i class="material-icons">phone</i></a>'+
+                               '</span>'+
+                             '</div>'+
+                             '<div class="card-content">'+
+                                 '<p>Price: '+res[i].fields.price+'</p>'+
+                             '</div>'+
+                             '<div class="card-reveal">'+
+                               '<span class="card-title grey-text text-darken-4">Phone<i class="material-icons right">close</i></span>'+
+                               '<p>';
+                            {% if request.user.username %}
+                            str = str + ''+res[i].fields.phone+'';
+                            {% else %}
+                            str = str + 'Please Login to view';
+                            {% endif %}
+                            str = str+'</p>'+
+                                                '</div>'+
+                                            '</div>'+
+                                        '</div>';
+                    $('.main-content').append(str);
+                }
+                $.when($('.grid').masonry({itemSelector: '.grid-item'})).then(function(){
+                  //Search code
+
+                  $('#search').keyup(function(){
+                     var valThis = $(this).val().toLowerCase();
+                      if(valThis == ""){
+                          $('.main-content > .grid-item').show();
+                      } else {
+                        $('.grid').masonry('destroy');
+                          $('.main-content > .grid-item').each(function(){
+                              var text = $(this).text().toLowerCase();
+                              (text.indexOf(valThis) >= 0) ? $(this).show() : $(this).hide();
+                          });
+                     };
+                     $('.grid').masonry({itemSelector: '.grid-item'});
+                  });
+
+                });
+              },
+              error: function(jqXHR, exception) {
+                $('.loader').css('display','none');
+                $('.row').append("<p>Request Failed</p><br><p>If you are using Facebook App's browser, please open the link in any other browser</p>");
+              }
+      });
+    }
+    getdata();
+
+
+</script>
+
+<script>
+    $('#reset').click(function(){
+      var obj = $('.grid');
+      $('.grid').masonry('destroy');
+      $('.main-content').empty();
+
+      $('#reset').css('display','none');
+      $('.loader').css('display','block');
+      $(':input','#filterform')
+      .not(':button, :submit, :reset, :hidden')
+      .val('')
+      .removeAttr('checked')
+      .removeAttr('selected');
+      getdata();
+    });
+
+</script>
+
+<script>
+    $( document ).ready(function(){
+        $(".button-collapse").sideNav();
+        $(".dropdown-button").dropdown();
+    });
+</script>
+
+<script>
+    $('#apply').click(function(){
+      var obj = $('.grid');
+      $('.grid').masonry('destroy');
+
+      $('.main-content').empty();
+    });
+</script>
+
+<script>
+  $('.showloader').click(function(){
+    $('.loader').css('display','block');
+  });
+</script>
+
+<script>
+$("#filterform").submit(function(e) {
+
+    var url = "/getdata"; // the script where you handle the form input.
+
+    $.ajax({
+           type: "GET",
+           url: url,
+           data: $("#filterform").serialize(),
+           success: function(res)
+           {
+               $('.loader').css('display','none');
+               $('#reset').css('display','inline-block');
+               for(var i =0;i<res.length;i++) {
+                   var str = '<div class="col s12 m6 grid-item">'+
+                       '<div class="card">'+
+                           '<div class="card-content">'+
+                               '<span class="card-title">'+res[i].fields.title+'</span>'+
+                               '<p>'+res[i].fields.desc+'</p>'+
+                           '</div>'+
+                           '<div class="card-content">'+
+                             '<span class="card-title activator grey-text text-darken-4">'+
+                                '<a class="right btn-floating waves-effect waves-light green accent-4"><i class="material-icons">phone</i></a>'+
+                             '</span>'+
+                           '</div>'+
+                           '<div class="card-content">'+
+                               '<p>Price: '+res[i].fields.price+'</p>'+
+                           '</div>'+
+                           '<div class="card-reveal">'+
+                             '<span class="card-title grey-text text-darken-4">Phone<i class="material-icons right">close</i></span>'+
+                             '<p>';
+                          {% if request.user.username %}
+                          str = str + ''+res[i].fields.phone+'';
+                          {% else %}
+                          str = str + 'Please Login to view';
+                          {% endif %}
+                          str = str+'</p>'+
+                                              '</div>'+
+                                          '</div>'+
+                                      '</div>';
+                   $('.main-content').append(str);
+
+               }
+               $('.grid').masonry({
+                // options
+                itemSelector: '.grid-item',
+              });
+
+                if(res.length == 0) {
+                  $('.main-content').append('<div class="section row center grey-text">No items to display</div>')
+                }
+           },
+           error: function(jqXHR, exception) {
+            $('.loader').css('display','none');
+              $('.row').append("<p>Request Failed</p><br><p>If you are using Facebook App's browser, please open the link in any other browser</p>");
+            }
+         });
+         e.preventDefault();
+
+     });
+</script>
+
+</html>

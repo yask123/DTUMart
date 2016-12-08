@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html>
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Buy, Sell and Exchange books and from fellow DTU-ites">
+    <meta name="keywords" content="DTU Mart, College, Books, buy, sell, Delhi Technological University, DTU, DCE, ads" />
+    <meta name="author" content="">
+
+
+    <meta property="og:url"           content="http://dtumart.com" />
+    <meta property="og:type"          content="website" />
+    <meta property="og:site_name"     content="DTU Mart"/>
+    <meta property="og:title"         content="DTU Mart" />
+    <meta property="og:description"   content="Buy, Sell and Exchange books and items from fellow DTU-ites" />
+    <meta property="og:image"         content="http://dtumart.com/static/share.png" />
+    <meta property="fb:app_id"        content="1648788025396019" />
+    <meta property="og:locale"        content="en_US" />
+
+    <title>Post Ad - DTU Mart</title>
+
+    <!--Import Google Icon Font-->
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- materialize -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">
+    <!-- favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'app/favicon-32x32.png' %}">
+    <link rel="icon" type="image/png" sizes="96x96" href="{% static 'app/favicon-96x96.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'app/favicon-16x16.png' %}">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="theme-color" content="#ffffff">
+
+    <!-- Google analytics -->
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-64358360-3', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+
+
+    <style>
+        .mdi-navigation-menu {
+            position: absolute;
+            top: 12px;
+            font-size: 28px;
+            color: white;
+        }
+        header, main, footer {
+          padding-left: 240px;
+        }
+
+        @media only screen and (max-width : 992px) {
+          header, main, footer {
+            padding-left: 0;
+          }
+        }
+
+
+    </style>
+</head>
+<body>
+    <!-- jquery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <!-- materialize js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
+
+    {% include 'ads/nav.html' %}
+
+    {% if error %}
+    <script type="text/javascript">
+      Materialize.toast("Couldn't save your Ad. Please enter proper details")
+    </script>
+    {% endif %}
+
+    <div class="container items section">
+        <div class="row">
+            {% if user.is_staff == False %}
+            <div class="col s12 m6">
+              <p style="color: rgb(102, 94, 94)">You are prohibited to post any more ads. Please check your Email and contact us.</p>
+            </div>
+            {% else %}
+            <form class="col s12 m6" method="post" action="">
+                {% csrf_token %}
+              <div class="row">
+
+                <div class="input-field col s12">
+                  <input name="title" placeholder="Ad Title" id="ad_title" type="text" class="validate" required="" maxlength="50">
+                  <label for="ad_title">Title</label>
+                </div>
+
+              </div>
+
+              <div class="row">
+                  <div class="input-field col s12">
+                    <input name="desc" placeholder="Ad Description" id="ad_desc" type="text" class="validate" maxlength="200">
+                    <label for="ad_desc">Description</label>
+                  </div>
+              </div>
+              <div class="row">
+                  <div class="input-field col s12">
+                    <input name="price" placeholder="Item Price" id="ad_price" type="number" class="validate" required="">
+                    <label for="ad_price">Price</label>
+                  </div>
+              </div>
+              <div class="row">
+                  <div class="input-field col s12">
+                    <input name="phone" placeholder="Phone Number" id="ad_phone" type="number" class="validate" min="7000000000" max="9999999999" required="">
+                    <label for="ad_phone" data-error="Ivalid MobileNo.">Contact</label>
+                  </div>
+              </div>
+
+              <div class="s12 grey-text">
+                  <p>Students of which year(s) could find this item useful: </p>
+                  <div class="row">
+                      <div class="col s3"><input type="checkbox" name="I" class="filled-in" id="I" />
+                      <label for="I" class="">I</label></div>
+
+
+                      <div class="col s3"><input type="checkbox" name="II" class="filled-in" id="II" />
+                      <label for="II" class="">II</label></div>
+
+                      <div class="col s3"><input type="checkbox" name="III" class="filled-in" id="III" />
+                      <label for="III" class="">III</label></div>
+
+                      <div class="col s3"><input type="checkbox" name="IV" class="filled-in" id="IV" />
+                      <label for="IV" class="">IV</label></div>
+                  </div>
+            </div>
+
+            <div class="s12 grey-text">
+                <p>Students of which branch(es) could find this item useful: </p>
+                <div class="row ">
+                    <div class="col s3"><input type="checkbox" name="COE" class="filled-in" id="COE" />
+                    <label for="COE" class="">COE</label></div>
+
+
+                    <div class="col s3"><input type="checkbox" name="IT" class="filled-in" id="IT" />
+                    <label for="IT" class="">IT</label></div>
+
+                    <div class="col s3"><input type="checkbox" name="SE" class="filled-in" id="SE" />
+                    <label for="SE" class="">SE</label></div>
+
+                    <div class="col s3"><input type="checkbox" name="MCE" class="filled-in" id="MCE" />
+                    <label for="MCE" class="">MCE</label></div>
+
+                    <div class="col s3"><input type="checkbox" name="ME" class="filled-in" id="ME" />
+                    <label for="ME" class="">ME</label></div>
+
+                    <div class="col s3"><input type="checkbox" name="ECE" class="filled-in" id="ECE" />
+                    <label for="ECE" class="">ECE</label></div>
+
+                    <div class="col s3"><input type="checkbox" name="EEE" class="filled-in" id="EEE" />
+                    <label for="EEE" class="">EEE</label></div>
+
+                    <div class="col s3"><input type="checkbox" name="CE" class="filled-in" id="CE" />
+                    <label for="CE" class="">CE</label></div>
+
+                    <div class="col s3"><input type="checkbox" name="EE" class="filled-in" id="EE" />
+                    <label for="EE" class="">EE</label></div>
+
+                    <div class="col s3"><input type="checkbox" name="EP" class="filled-in" id="EP" />
+                    <label for="EP" class="">EP</label></div>
+                </div>
+          </div>
+          <button class="showloader btn waves-effect waves-light" type="submit" name="action">Submit
+              <i class="material-icons right">send</i>
+            </button>
+
+            </form>
+
+
+
+            {% endif %}
+
+            <div class="col s12 m6 section">
+                <div class="col s12 m12">
+                    <div class="card">
+                        <div class="card-content">
+                            <span id="title_value" class="card-title"></span>
+                            <p id="desc_value"></p>
+                        </div>
+                        <div class="card-content">
+                          <span class="card-title activator grey-text text-darken-4">
+                              <a class="right btn-floating waves-effect waves-light green"><i class="material-icons">phone</i></a>
+                          </span>
+                        </div>
+                        <div class="card-content">
+                            <p id="price_value">Price: </p>
+                        </div>
+                        <div class="card-reveal">
+                          <span class="card-title grey-text text-darken-4">Phone<i class="material-icons right">close</i></span>
+                          <p id="phone_value"></p>
+                        </div>
+                    </div>
+                </div>
+                 <div class="center section loader" style="display:none;">
+                <div class="preloader-wrapper small active">
+                    <div class="spinner-layer spinner-green-only">
+                      <div class="circle-clipper left">
+                        <div class="circle"></div>
+                      </div><div class="gap-patch">
+                        <div class="circle"></div>
+                      </div><div class="circle-clipper right">
+                        <div class="circle"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+
+          </div>
+          
+      </div>
+
+</body>
+
+<script>
+    $('#ad_title').on('input',function(e){
+        $('#title_value').html($('#ad_title').val());
+    });
+    $('#ad_desc').on('input',function(e){
+        $('#desc_value').html($('#ad_desc').val());
+    });
+    $('#ad_price').on('input',function(e){
+        $('#price_value').html('Price: '+$('#ad_price').val());
+    });
+    $('#ad_phone').on('input',function(e){
+        $('#phone_value').html($('#ad_phone').val());
+    });
+</script>
+<script type="text/javascript">
+    $('.showloader').click(function(){
+        $('.loader').css('display','block');
+    });
+</script>
+</html>

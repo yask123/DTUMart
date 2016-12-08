@@ -1,0 +1,89 @@
+<div class="container">
+    <a href="#" data-activates="slide-out" class="button-collapse top-nav full hide-on-large-only"><i class="mdi-navigation-menu"></i></a>
+</div>
+<ul id="slide-out" class="side-nav fixed">
+    <table class="centered">
+        <thead>
+            <tr>
+                <th>Filter</th>
+            </tr>
+        </thead>
+    </table>
+    <div class="container">
+        <form id="filterform" method="get" action="">
+            <table class="">
+                    <thead>
+                        <tr>
+                            <th>Year</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <select name="year">
+                        <tr>
+                            <td><input name="I" type="checkbox" class="filled-in" id="I" />
+                            <label for="I">I</label></td>
+                            <td><input name="II" type="checkbox" class="filled-in" id="II" />
+                            <label for="II">II</label></td>
+                        </tr>
+                        <tr>
+                            <td><input name="III" type="checkbox" class="filled-in" id="III" />
+                            <label for="III">III</label></td>
+                            <td><input name="IV" type="checkbox" class="filled-in" id="IV" />
+                            <label for="IV">IV</label></td>
+                        </tr>
+                        </select>
+                    </tbody>
+            </table>
+
+            <table class="">
+                <thead>
+                    <tr>
+                        <th>Branch</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <tr>
+                        <td><input name="COE" type="checkbox" class="filled-in" id="COE" />
+                        <label for="COE">COE</label></td>
+                        <td><input name="IT" type="checkbox" class="filled-in" id="IT" />
+                        <label for="IT">IT</label></td>
+                    </tr>
+                    <tr>
+                        <td><input name="SE" type="checkbox" class="filled-in" id="SE" />
+                        <label for="SE">SE</label></td>
+                        <td><input name="MCE" type="checkbox" class="filled-in" id="MCE" />
+                        <label for="MCE">MCE</label></td>
+                    </tr>
+                    <tr>
+                        <td><input name="ME" type="checkbox" class="filled-in" id="ME" />
+                        <label for="ME">ME</label></td>
+                        <td><input name="ECE" type="checkbox" class="filled-in" id="ECE" />
+                        <label for="ECE">ECE</label></td>
+                    </tr>
+                    <tr>
+                        <td><input name="EEE" type="checkbox" class="filled-in" id="EEE" />
+                        <label for="EEE">EEE</label></td>
+                        <td><input name="CE" type="checkbox" class="filled-in" id="CE" />
+                        <label for="CE">CE</label></td>
+                    </tr>
+                    <tr>
+                        <td><input name="EE" type="checkbox" class="filled-in" id="EE" />
+                        <label for="EE">EE</label></td>
+                        <td><input name="EP" type="checkbox" class="filled-in" id="EP" />
+                        <label for="EP">EP</label></td>
+                    </tr>
+
+
+                </tbody>
+
+            </table>
+            <div class="center">
+                <button type="submit" id="apply" class="waves-effect waves-light btn showloader indigo"><i id="send-icon" class="material-icons right animated apply-send">send</i>Apply</button>
+            </div>
+        </form>
+    </div>
+
+</ul>

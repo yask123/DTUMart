@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html>
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Buy, Sell and Exchange books from fellow DTU-ites">
+    <meta name="keywords" content="DTU Mart, College, Books, buy, sell, Delhi Technological University, DTU, DCE, ads" />
+    <meta name="author" content="">
+
+
+    <meta property="og:url"           content="http://dtumart.com" />
+    <meta property="og:type"          content="website" />
+    <meta property="og:site_name"     content="DTU Mart"/>
+    <meta property="og:title"         content="DTU Mart" />
+    <meta property="og:description"   content="Buy, Sell and Exchange books from fellow DTU-ites" />
+    <meta property="og:image"         content="http://dtumart.com/static/share.png" />
+    <meta property="fb:app_id"        content="1648788025396019" />
+    <meta property="og:locale"        content="en_US" />
+
+    <title>My Ads - DTU Mart</title>
+
+    <!--Import Google Icon Font-->
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- materialize -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">
+    <!-- favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'app/favicon-32x32.png' %}">
+    <link rel="icon" type="image/png" sizes="96x96" href="{% static 'app/favicon-96x96.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'app/favicon-16x16.png' %}">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="theme-color" content="#ffffff">
+
+    <!-- Google analytics -->
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-64358360-3', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+
+    <style>
+      body {
+        display: flex;
+        min-height: 100vh;
+        flex-direction: column;
+      }
+
+      .items {
+        flex: 1 0 auto;
+      }
+        .mdi-navigation-menu {
+            position: absolute;
+            top: 12px;
+            font-size: 28px;
+            color: white;
+        }
+
+
+        @media only screen and (max-width : 992px) {
+          header, main, footer {
+            padding-left: 0;
+          }
+        }
+
+    </style>
+</head>
+<body>
+    <!-- jquery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <!-- materialize js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
+    <!-- masonry -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/masonry/3.3.2/masonry.pkgd.min.js"></script>
+    <header>
+        {% include 'ads/nav.html' %}
+
+    </header>
+
+    <!-- messages to display -->
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        {% if message.tags == "info" %}
+            <div id="modal1" class="modal">
+                <div class="modal-content">
+                  <h4>Ad Deleted</h4>
+                  <p>Did you successfully sell that item ?</p>
+                </div>
+                <div class="modal-footer">
+                  <i class=" modal-action modal-close waves-effect waves-green btn-flat">No</i>
+		  <i class="sold modal-action modal-close waves-effect waves-green btn-flat">Yes</i>
+                </div>
+            </div>
+            <script>
+                $('#modal1').openModal();
+            </script>
+        {% endif %}
+        {% endfor %}
+    </ul>
+
+    {% endif %}
+
+
+    <div class="container items">
+
+        <div class="center section loader" style="display:none;">
+            <div class="preloader-wrapper small active">
+                <div class="spinner-layer spinner-green-only">
+                  <div class="circle-clipper left">
+                    <div class="circle"></div>
+                  </div><div class="gap-patch">
+                    <div class="circle"></div>
+                  </div><div class="circle-clipper right">
+                    <div class="circle"></div>
+                  </div>
+                </div>
+            </div>
+        </div>
+
+        <h2 class="center grey-text">Your Ads</h2>
+
+        <div class="row grid">
+
+
+
+
+        {% if ads|length == 0 %}
+        <div class="center grey-text">No items to display</div>
+        {% endif %}
+
+            {% for ad in ads %}
+            <div class="col s12 m6 grid-item">
+                <div class="card">
+                    <div class="card-content">
+                        <span class="card-title">{{ad.title}}</span>
+                        <p>{{ad.desc}}</p>
+                    </div>
+                    <div class="card-content">
+                      <span class="card-title activator grey-text text-darken-4">
+                          <a class="right btn-floating waves-effect waves-light green"><i class="material-icons">phone</i></a>
+                      </span>
+                    </div>
+                    <div class="card-content">
+                        <p>Price: {{ad.price}}</p>
+                    </div>
+                    <div class="card-reveal">
+                      <span class="card-title grey-text text-darken-4">Phone<i class="material-icons right">close</i></span>
+                      <p>{{ad.phone}}</p>
+                    </div>
+
+                    <div class="card-content">
+                        <div class="fixed-action-btn horizontal click-to-toggle" style="position:absolute;">
+                            <a class="btn-floating btn-small right red">
+                              <i class="large material-icons">delete</i>
+                            </a>
+                            <ul>
+                                <li>
+                                    <form method="post" action="">
+                                        {% csrf_token %}
+                                        <input name="ad_id" value="{{ad.id}}" type="hidden">
+                                        <input type="submit" class="btn red showloader" value="Confirm Delete"></a>
+                                    </form>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+            {% endfor %}
+
+        </div>
+        <div class="fixed-action-btn horizontal " style="bottom: 45px; right: 24px;">
+            <a class="btn-floating btn-large red tooltipped waves-effect waves-light" data-position="top" data-delay="50" data-tooltip="Post new Ad" href="/post-ad">
+              <i class="large material-icons">add</i>
+            </a>
+        </div>
+
+
+    </div>
+
+
+    {% include 'ads/footer.html' %}
+</body>
+
+<script>
+    $( document ).ready(function(){
+        $(".dropdown-button").dropdown();
+    });
+</script>
+<script>
+    $('.sold').click(function(){
+      Materialize.toast('Thanks for feedback',4000);
+      var url = "/soldapi"
+        $.ajax({
+           type: "PUT",
+           url: url,
+           success: function(res)
+           {}
+        })
+    });
+</script>
+<script>
+  $('.grid').masonry({
+              // options
+              itemSelector: '.grid-item',
+  });
+</script>
+<script type="text/javascript">
+    $('.showloader').click(function(){
+        $('.loader').css('display','block');
+    });
+</script>
+</html>

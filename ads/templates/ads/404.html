@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html>
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Buy, Sell and Exchange books and items from fellow DTU-ites">
+    <meta name="keywords" content="DTU Mart, College, Books, buy, sell, Delhi Technological University, DTU, DCE, ads" />
+    <meta name="author" content="">
+
+
+    <meta property="og:url"           content="http://dtumart.com" />
+    <meta property="og:type"          content="website" />
+    <meta property="og:site_name"     content="DTU Mart"/>
+    <meta property="og:title"         content="DTU Mart" />
+    <meta property="og:description"   content="Buy, Sell and Exchange books and items from fellow DTU-ites" />
+    <meta property="og:image"         content="http://dtumart.com/static/share.png" />
+    <meta property="fb:app_id"        content="1648788025396019" />
+    <meta property="og:locale"        content="en_US" />
+
+    <title>Contact - DTU Mart</title>
+
+    <!--Import Google Icon Font-->
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- materialize -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">
+
+    <!-- favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'app/favicon-32x32.png' %}">
+    <link rel="icon" type="image/png" sizes="96x96" href="{% static 'app/favicon-96x96.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'app/favicon-16x16.png' %}">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="theme-color" content="#ffffff">
+
+    <style>
+        .mdi-navigation-menu {
+            position: absolute;
+            top: 12px;
+            font-size: 28px;
+            color: white;
+        }
+
+
+        @media only screen and (max-width : 992px) {
+          header, main, footer {
+            padding-left: 0;
+          }
+        }
+
+        p,h3,h1,h2,li{
+            margin: 0 0 10px !important;
+            color: rgb(102, 94, 94) !important;
+        }
+        .why li {
+            list-style-type: disc;
+            margin: 0 !important;
+        }
+    </style>
+
+</head>
+<body>
+    <!-- jquery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <!-- materialize js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
+    <header>
+        {% include 'ads/nav.html' %}
+    </header>
+    <div class="container">
+        <div class="center container">
+            <p style="font-size:7em;">404</p>
+            <h3>Page Not Found</h3>
+        </div>
+        <div class="section">
+             <p>Why am I seeing this?</p>
+             <ul class="why">
+                 <li>The page specified does not exist</li>
+                 <li>There might be syntax error in the URL.</li>
+             </ul>
+        </div>
+
+    </div>
+    
+</body>
+
+</html>

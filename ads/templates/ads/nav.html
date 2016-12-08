@@ -1,0 +1,73 @@
+    
+    <!-- font awesome -->
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+    <!-- Colors:
+        #247CBB !important
+    -->
+
+    <!-- Dropdown Structure -->
+    <style type="text/css">
+        .profile{
+            border: 2px solid rgba(255, 255, 255, 0.37);
+            border-radius: 50%;
+            margin-top: 7px;
+        }
+        .page-title {
+          font-family: 'Roboto Slab', serif;
+        }
+    </style>
+    <ul id="dropdown1" class="dropdown-content">
+        {% if user.username %}
+        <li><a href="/myads">My Ads</a></li>
+        {% endif %}
+        <li><a href={% if user.username %}"/post-ad"{% else %}"/loginpage?unauth=true"{% endif %}>Post Ad</a></li>
+        <li><a href="/contact">Contact</a></li>
+        <li class="divider"></li>
+        {% if user.username %}<li><a href="/logout">Logout</a></li>{% endif %}
+    </ul>
+    <nav class="top-nav">
+        <div class="nav-wrapper indigo darken-2">
+            <a href="/" class="page-title brand-logo center">DTU Mart</a>
+            
+            <ul class="right hide-on-med-and-down">
+                {% if user.username %}
+                <li style="font-size:17px;"><strong>{{ user.first_name }}</strong></li>
+                {% else %}
+                <li>
+                    <a class="showloader" href="/login" style="font-size:17px;"><i class="fa fa-facebook-official" style="font-size:18px;padding-right:5px;"></i>
+                    <strong>Login</strong></a>
+                </li>
+                {% endif %}
+                <!-- Dropdown Trigger -->
+                <li><a class="dropdown-button" href="#!" data-activates="dropdown1">
+                {% if request.user.socialaccount_set.all|length == 0 %}
+                <i class="material-icons right">arrow_drop_down</i>
+                {% else %}
+                <img class="profile" width="45" height="45" src="https://graph.facebook.com/{{request.user.socialaccount_set.all.0.uid}}/picture?type=square">
+                {% endif %}
+                </a></li>
+            </ul>
+            <div class="container">
+            <a href="#" data-activates="mobile-demo" class="right dropdown-button top-nav full hide-on-large-only">
+                {% if request.user.socialaccount_set.all|length == 0 %}
+                <i class="material-icons" style="position:static !important;">arrow_drop_down</i>
+                {% else %}
+                <img class="profile" width="45" height="45" src="https://graph.facebook.com/{{request.user.socialaccount_set.all.0.uid}}/picture?type=square">
+                {% endif %}
+            </a>
+            </div>
+
+            <ul class="dropdown-content" id="mobile-demo">
+                {% if user.username %}
+                <li><a href="/myads">My Ads</a></li>
+                {% else %}
+                <li><a class="showloader" href="/login">Login</a></li>
+                {% endif %}
+                <li><a href={% if user.username %}"/post-ad"{% else %}"/loginpage?unauth=true"{% endif %}>Post Ad</a></li>
+                <li><a href="/contact">Contact</a></li>
+                <li class="divider"></li>
+                {% if user.username %}<li><a href="/logout">Logout</a></li>{% endif %}
+          </ul>
+        </div>
+    </nav>
